@@ -89,20 +89,20 @@ def put_silver_behind():
                 #if he fails to grab, he takes a step back and retry
                 if (R.grab() == False):
                     print("Failed to grab! I will retry")
-                    drive(-20,1)
+                    drive(-30,1)
                     return control_silver()
 
                 #this is to choose the turning direction to release it
                 #so we don't hit golden boxes and we keep silvers in the centre
                 if choose_direction():
-                    right = 1
-                else:
                     right = -1
-                turn(right*14,4.5)
+                else:
+                    right = 1
+                turn(right*16,4)
                 drive(10,0.5)
                 R.release()
                 drive(-20,1)
-                turn(-right*14,4.5)
+                turn(-right*16,4)
                 return
 
             # if it's not close enough, he gets closer
@@ -128,14 +128,14 @@ def control_gold():
             if abs(m.rot_y)<30 and m.dist<0.9:
                 if choose_direction():
                     print("Golden box in front! Better turn left")
-                    turn(-5, 2)
+                    turn(-10, 0.5)
                 else:
                     print("Golden box in front! Better turn right")
-                    turn(5, 2)
+                    turn(10, 0.5)
                 return control_gold()
             
             #it's close, turn a bit
-            elif abs(m.rot_y)<50 and m.dist<0.8:
+            elif abs(m.rot_y)<70 and m.dist<0.7:
                 print("Golden box near!")
                 if m.rot_y > 0:
                     turn(-6, 0.5)
@@ -143,14 +143,7 @@ def control_gold():
                     turn(6, 0.5)
                 return control_gold()
             
-            #not too close, turn just a little bit
-            elif abs(m.rot_y)<70 and m.dist<0.7:
-                print("Golden box near!")
-                if m.rot_y > 0:
-                    turn(-4, 0.5)
-                else:
-                    turn(4, 0.5)
-                return control_gold()
+
 				
 def choose_direction():
     """
@@ -209,4 +202,3 @@ while 1:
     control_gold()				  
     control_silver()
     drive(100,0.1)
-
