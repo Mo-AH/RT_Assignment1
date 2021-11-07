@@ -89,6 +89,10 @@ def put_silver_behind():
                 #if he fails to grab, he takes a step back and retry
                 if (R.grab() == False):
                     print("Failed to grab! I will retry")
+                    if m.rot_y > 0:
+                        turn(-2, 0.5)
+                    else:
+                        turn(2, 0.5)
                     drive(-30,1)
                     return control_silver()
 
@@ -202,3 +206,4 @@ while 1:
     control_gold()				  
     control_silver()
     drive(100,0.1)
+
